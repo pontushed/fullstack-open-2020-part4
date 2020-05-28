@@ -1,0 +1,39 @@
+{
+  "name": "fullstack-open-2020-part4",
+  "version": "1.0.0",
+  "description": "Part 4 for Full Stack Open 2020 course",
+  "main": "index.js",
+  "scripts": {
+    "start": "cross-env NODE_ENV=production node index.js",
+    "dev": "cross-env NODE_ENV=development nodemon index.js",
+    "lint": "eslint .",
+    "test": "cross-env NODE_ENV=test jest --verbose --runInBand"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pontushed/fullstack-open-2020-part4.git"
+  },
+  "author": "Pontus Hedlund",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pontushed/fullstack-open-2020-part4/issues"
+  },
+  "homepage": "https://github.com/pontushed/fullstack-open-2020-part4#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "cross-env": "^7.0.2",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-async-errors": "^3.1.1",
+    "lodash": "^4.17.15",
+    "mongoose": "^5.9.16",
+    "mongoose-unique-validator": "^2.0.3",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.1.0",
+    "jest": "^26.0.1",
+    "nodemon": "^2.0.4",
+    "supertest": "^4.0.2"
+  }
+}
