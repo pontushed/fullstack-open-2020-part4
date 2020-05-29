@@ -50,7 +50,7 @@ describe('API Tests', () => {
     await api
       .post('/api/blogs')
       .send(newBlog)
-      .expect(201)
+      .expect(200)
       .expect('Content-Type', /application\/json/)
     const blogsAtEnd = await helper.blogsInDb()
     expect(blogsAtEnd).toHaveLength(helper.initialBlogs.length + 1)
@@ -80,13 +80,37 @@ describe('API Tests', () => {
     await api
       .post('/api/blogs')
       .send(newBlog)
-      .expect(201)
+      .expect(200)
       .expect('Content-Type', /application\/json/)
     const blogsAtEnd = await helper.blogsInDb()
     expect(blogsAtEnd).toHaveLength(helper.initialBlogs.length + 1)
     const contents = blogsAtEnd.find((n) => n.title === 'GitHub')
     expect(contents.likes).toBeDefined()
     expect(contents.likes).toEqual(0)
+  })
+
+  describe('Delete one blog', () => {
+    test('number of blogs decrease by one', async () => {
+      const blogsAtStart = await helper.blogsInDb()
+      await api.delete('/api/blogs/' + blogsAtStart[0].id).expect(204)
+      const blogsAtEnd = await helper.blogsInDb()
+      expect(blogsAtEnd).toHaveLength(helper.initialBlogs.length - 1)
+    })
+  })
+
+  describe('Updates', () => {
+    test.only('add one like', async () => {
+      const blogsAtStart = await helper.blogsInDb()
+      const newLikes = blogsAtStart[0].likes + 1
+      blogsAtStart[0].likes = newLikes
+      await api
+        .put('/api/blogs/' + blogsAtStart[0].id)
+        .send(blogsAtStart[0])
+        .expect(200)
+        .expect('Content-Type', /application\/json/)
+      const blogsAtEnd = await helper.blogsInDb()
+      expect(blogsAtEnd[0]).toEqual(blogsAtStart[0])
+    })
   })
 
   afterAll(() => {
