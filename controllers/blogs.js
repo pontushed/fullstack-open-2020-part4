@@ -45,10 +45,12 @@ blogsRouter.delete('/:id', async (request, response) => {
   if (blog.user.toString() === user._id.toString()) {
     await blog.remove()
     response.status(204).end()
+  } else {
+    response
+      .status(401)
+      .json({ error: 'not authorized: not the same user that added the blog' })
+      .end()
   }
-  response
-    .status(401)
-    .json({ error: 'not authorized: not the same user that added the blog' })
 })
 
 blogsRouter.put('/:id', async (request, response) => {
